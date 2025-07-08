@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Optional: Coverage / test output
+coverage/
+jest/
+test-output/
+
+# Build artifacts (if you use TypeScript or transpilers)
+dist/
+build/
+
+# Optional: MongoDB local data dump
+dump/
