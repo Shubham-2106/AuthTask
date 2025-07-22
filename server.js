@@ -8,7 +8,23 @@ const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://authtask-3ygq.onrender.com',
+  'https://your-frontend-domain.com' // Replace with your deployed frontend URL if different
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);

@@ -5,19 +5,36 @@ exports.getTasks = async (req, res) => {
   res.json(tasks);
 };
 
+
 exports.createTask = async (req, res) => {
-  const task = await Task.create({ ...req.body, user: req.user._id });
+  console.log('Create Task Body:', req.body);
+  const completed = req.body.completed === true || req.body.completed === 'true';
+  let task = new Task({
+    title: req.body.title,
+    completed,
+    user: req.user._id
+  });
+  await task.save();
+  console.log('Saved Task:', task);
   res.status(201).json(task);
 };
 
+
 exports.updateTask = async (req, res) => {
-  const task = await Task.findOneAndUpdate(
-    { _id: req.params.id, user: req.user._id },
-    req.body,
-    { new: true }
-  );
-  res.json(task);
+  console.log('Update Task Body:', req.body);
+  const completed = req.body.completed === true || req.body.completed === 'true';
+  let task = await Task.findOne({ _id: req.params.id, user: req.user._id });
+  if (task) {
+    task.title = req.body.title;
+    task.completed = completed;
+    await task.save();
+    console.log('Updated Task:', task);
+    res.json(task);
+  } else {
+    res.status(404).json({ message: 'Task not found' });
+  }
 };
+
 
 exports.deleteTask = async (req, res) => {
   await Task.findOneAndDelete({ _id: req.params.id, user: req.user._id });
