@@ -10,8 +10,8 @@ const taskRoutes = require('./routes/taskRoutes');
 const app = express();
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://authtask-3ygq.onrender.com',
-  'https://your-frontend-domain.com' // Replace with your deployed frontend URL if different
+  'https://authtask-a8kv.onrender.com',
+  'https://auth-task-ui.vercel.app/'
 ];
 app.use(cors({
   origin: function (origin, callback) {
