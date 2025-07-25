@@ -11,11 +11,10 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',
   'https://authtask-a8kv.onrender.com',
-  'https://auth-task-ui.vercel.app/'
+  'https://auth-task-ui.vercel.app'
 ];
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl, etc.)
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
